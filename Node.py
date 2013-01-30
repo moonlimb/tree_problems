@@ -19,6 +19,18 @@ class Node:
         else:   
             return False
 
+    def set_Lchild(self, left_value):
+        self.left = Node(left_value) 
+
+    def set_Rchild(self, right_value):
+        self.right = Node(right_value)
+
+    def get_Lchild(self):
+        return self.left
+
+    def get_Rchild(self):
+        return self.right
+
     def __repr__(self):
         return "Node(%s)" %(self.value)
 

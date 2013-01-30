@@ -1,0 +1,12 @@
+Input: list of items w/ same data type  
+Output: a list of Node objects constructed from given lst_of_items 
+ 
+ def make_Nodes(lst_of_items): 
+     return [Node(item) for item in lst_of_itmes] 
+      
+      Input: list of Node objects 
+      Output: a root node of a BST, construted recursively 
+       
+       def build_BST(lst_of_nodes): 
+           pass  
+           """
