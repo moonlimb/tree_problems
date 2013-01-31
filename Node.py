@@ -12,24 +12,24 @@ class Node:
     def is_leaf(self):
         return (not self.left and not self.right)
     
+    def __lt__(self, other):
+        return self.value < other.value
+
     def __le__(self, other):
         """returns True if value of self is less than or equal to that of other; both self and other are Node instances""" 
-        if self.value <= other.value:
-            return True
-        else:   
-            return False
+        return self.value <= other.value
+    
+    def __eq__(self, other):
+        return self.value == other.value
 
-    def set_Lchild(self, left_value):
-        self.left = Node(left_value) 
+    def __ne__(self, other):
+        return self.value != other.value 
 
-    def set_Rchild(self, right_value):
-        self.right = Node(right_value)
+    def __gt__(self, other):
+        return self.value > other.value
 
-    def get_Lchild(self):
-        return self.left
-
-    def get_Rchild(self):
-        return self.right
+    def __ge__(self, other):
+        return self.value >= other.value
 
     def __repr__(self):
         return "Node(%s)" %(self.value)
