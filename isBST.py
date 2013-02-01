@@ -6,7 +6,7 @@ def is_BST(node):
         return True
     else:
         # Node class contains comparison methods
-        if (node.left and node.left >= node) || (node.right and node >= node.right):
+        if (node.left and node.left >= node) or (node.right and node >= node.right):
             return False 
 
     return isBST(node.left) and isBST(node.right)
