@@ -1,51 +1,68 @@
+from __future__ import print_function
+
 """
-simple implementation of Binary Search Tree (BST)
-    - left descendants of a parent node <= parent node 
-    - right descendants of a parent node > parent node 
-    - Node object comparison methods are defined in Node class
+A simple implementation of Binary Search Tree (BST)
+   - Node object comparison methods are defined in Node class
 """
 class BST:
     def __init__(self, root=None):
         """root is a Node object"""
         self.root = root
 
-    def insert(self, key):
-        """Insert key into this BST; modifies BST in place"""
-        if self.root is None:
-            self.root = Node(key)
-
-    #is there an advantage to using self.getLchild() instead of self.left?
-        if key <= self.root:
-            self.left.insert(key)
+    def size(self): # count nodes
+        """Returns the total number of nodes in a tree"""
+        if not self.root: return 0
         else:
-            self.right.insert(key)
+            return size(self.root.left) + 1 + size(self.root.right)
 
+    def insert(self, value):
+        """Insert value into this BST; modifies BST in place"""
+        ## broken-- please fix
+        
+        def insert_helper(node, value):
+            if node is None:
+                self.root = Node(value)
+            elif value <= self.root:
+                insert_helper(node.left, value)
+            else:
+                insert_helper(node.right, value)
+
+        insert_helper(self.root, value)    
+        
     def find_min(self):
-        """non-recursive implementation
-           returns the node with the smallest key in a BST
-        """ 
-        # do I need a separate fcn for find_min_Node?
-        current_node = self 
-        while current_node.left is not None:
-            current_node = current_node.left
-        return current_node
+        """Returns the node with the smallest value in a BST"""        
+        current = self.root
+        while current.left is not None:
+            current = current.left
+        return current
+
+    def find_min_rec(self):
+        if self.root.left is None:
+            return self
+        return find_min_rec(self.left)
 
     def find_max(self):
-        """non-recursive implementation
-           returns the node with the largest key in the BST
-        """ 
-        current_node = self
-        while current_node.right is not None:
-            current_node = current_node.right
-        return current_node
+        """Returns the node with the largest value in the BST""" 
+        current = self
+        while current.right is not None:
+            current = current.right
+        return current
 
-    def find_node(self, value):
-        """non-recursive implementation
-           returns True if value is in a given BST"""
+    def find_max_rec(self):
+        if self.right is None:
+            return self
+        return find_max_rec(self.right)
+
+    # make it more elegant
+    def lookup(self, value):
+        """Returns True if value is in a given BST"""
+        if self.value == value:
+            return True
         if value <= self.left:
-        
-    def find_node_rec(self, value):
-        pass
+            return lookup(self.left)
+        else:
+            return lookup(self.right)
+        return True
 
         #BFS is non-recursive
         #DFS is easier recursive
@@ -53,30 +70,59 @@ class BST:
     def remove(self, node):
         pass
 
-    def look_up(self, key):
-        """
-        recursive implementation
-        returns True if key exists in the BST
-        """
-        if key == self.value:
-            return True
-        if key <= self.left:
-            return look_up(key)
-        else:
-            return look_up(key)
-        return False
+    def is_balanced(self, root):
+        pass
 
+    def balance(self):
+        pass
+
+    # make it more elegant
     def get_max_depth(self):
         if self == None:
             return 0
-        else:
-            lDepth = get_max_depth()
+        return max(get_max_depth(self.left), get_max_depth(self.right)) + 1
+
     def print_inorder(self):
-        pass
+        """Print Node objects in their value order"""
+        if self is None:     return
+        print_inorder(self.left)
+        print(self)     # prints Node object in repr format
+        print_inorder(self.right)
+
+    def traverse_inorder(self):
+        """closure / generator"""
+        def inorder_generator(self):
+            """A recursive generator that generates Tree leaves inorder"""
+            if self:
+                for child in inorder(self.left):
+                    yield child
+                yield self.val
+                for child in inorder(self.right):
+                    yield child
+        for data in inorder_generator(self):
+            print(data)
+
     def print_preorder(self):
-        pass
+        """Prints the parents node first, its left children next, and its right children last"""
+        if self is None:    return
+        print(self)
+        print_preorder(self.left)
+        print_preoreder(self.right)
+
     def print_postorder(self):
-        pass
+        """Prints parent node after its descendants"""
+        if self is None:    return 
+        print_postorder(self.left)
+        print_postorder(Self.right)
+        print(self)
+
+    def clear(self):
+        self.val = None
+        self.left = None
+        self.right = None
+
+    def is_empty(self):
+        return self.is_empty()
 """
 other potential methods: get_children / get_ancestors/ ..
     def __repr__(self):
